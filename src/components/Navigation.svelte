@@ -5,9 +5,6 @@
     import {navigate} from '../scripts/helpers.js';
     import {Link} from 'yrv';
 
-    let managerAddress = import.meta.env.VITE_MANAGER_ADDRESS;
-    let isManager = false;
-
     function showSftInfo() {
         sftInfo.set(true)
     }
@@ -22,12 +19,6 @@
     function handleClick(e) {
         navigate(e.detail, {clear: true})
     }
-
-    function checkConnectedAddress() {
-        isManager = $account.toLowerCase() === managerAddress.toLowerCase();
-    }
-
-    $: $account && checkConnectedAddress()
 
 </script>
 <div class="navigation-container relative h-full flex flex-col">
@@ -113,9 +104,7 @@
         </div>
       </NavigationButton>
       <NavigationButton targetPath="#ipfs-login" {path} on:navClick={handleClick} child={true}/>
-      {#if isManager}
-        <NavigationButton targetPath="#track-addresses" {path} on:navClick={handleClick} child={true}/>
-      {/if}
+      <NavigationButton targetPath="#track-addresses" {path} on:navClick={handleClick} child={true}/>
       <NavigationButton targetPath="#setup" {path} on:navClick={handleClick}>
         <div slot="icon">
           <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
