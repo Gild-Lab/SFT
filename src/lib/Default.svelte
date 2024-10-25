@@ -164,19 +164,7 @@
         await getEthersData();
         if ($isCypress) {
             account.set('0xc0d477556c25c9d67e1f57245c7453da776b51cf')
-            activeNetwork.set({
-                "id": 80001,
-                "chainId": 80001,
-                "name": "mumbai",
-                "displayName": "Mumbai testnet",
-                "currencySymbol": "MATIC",
-                "blockExplorer": "https://mumbai.polygonscan.com",
-                "blockExplorerIcon": "polygonscan",
-                "rpcUrl": "https://rpc-mumbai.maticvigil.com/",
-                "icon": "polygon",
-                "factory_address": "0x94927792b88D518f9a429572dD3D40400b8BE906",
-                "subgraph_url": "https://api.thegraph.com/subgraphs/name/gildlab/offchainassetvault-mumbai"
-            })
+            activeNetwork.set(networks.find(n => n.id === 11155111))
         }
         if ($isMetamaskInstalled) {
             if ((location === "/" || location === "") && !$landing) {

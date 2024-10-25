@@ -11,13 +11,11 @@
         transactionSuccess,
         transactionInProgress,
         auditHistory,
-        accountRoles,
         tokenName,
         pageTitle,
         isCypress
     } from "../scripts/store.js";
     import {account} from "../scripts/store.js";
-    import {navigateTo} from "yrv";
     import axios from "axios";
     import Select from "../components/Select.svelte";
     import {icons} from "../scripts/assets.js";

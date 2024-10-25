@@ -4,8 +4,8 @@
     import {
         account,
         accountRoles,
-        activeNetwork, auditHistory, deposits,
-        ethersData, isCypress, roles, schemas,
+        activeNetwork, auditHistory,
+        ethersData, roles, schemas,
         sftInfo,
         tokens, tokensLoading, transactionError, transactionInProgress, transactionInProgressShow, transactionSuccess,
         vault

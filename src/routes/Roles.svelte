@@ -95,7 +95,6 @@
 
         pageTitle.set("SFT roles")
         titleIcon.set(`${icons.roles_icon}`)
-
     })
 
 </script>
