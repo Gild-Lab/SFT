@@ -236,7 +236,6 @@
         vault.set({});
         await setNetwork();
         await getTokens();
-        navigateTo("#list");
     }
 
     async function getEthersData() {
