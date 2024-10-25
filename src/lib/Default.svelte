@@ -127,6 +127,8 @@
                     navigateTo("#list", {replace: false})
                 } else if (location === "#setup") {
                     navigateTo("#setup", {replace: false})
+                } else if (location === "#track-addresses") {
+                    navigateTo("#track-addresses", {replace: false})
                 } else if (location === "#ipfs") {
                     navigateTo("#ipfs", {replace: false})
                 } else if (location === "#manual") {
