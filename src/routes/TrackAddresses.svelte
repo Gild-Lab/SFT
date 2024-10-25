@@ -1,11 +1,11 @@
 <script>
     import {
         account,
-        activeNetwork,
         ethersData,
         sftInfo, transactionError,
         transactionInProgress,
-        transactionSuccess
+        transactionSuccess,
+        activeNetwork
     } from "../scripts/store";
     import {
         cborDecode,
@@ -21,14 +21,17 @@
     import {arrayify} from 'ethers/lib/utils.js';
     import metadataContractAbi from "../contract/rainMetadata/rainMetadataAbi.json"
     import {onMount} from 'svelte';
+    import networks from '../scripts/networksConfig.js';
+    import {ethers} from 'ethers';
 
     let {signer} = $ethersData;
+    let arbitrumNet = networks.find(n => n.id === 42161)
 
     let metadataContract = "";
     let addresses = [];
 
     onMount(async () => {
-        metadataContract = await getContract($activeNetwork, RAIN_METADATA_CONTRACT_ADDRESS_SEPOLIA.trim(), metadataContractAbi, $ethersData.signerOrProvider)
+        metadataContract = await getContract(arbitrumNet, RAIN_METADATA_CONTRACT_ADDRESS_SEPOLIA.trim(), metadataContractAbi, $ethersData.signerOrProvider)
         await getAddresses();
     })
 
@@ -122,6 +125,41 @@
         }
     }
 
+    async function switchToArbitrum() {
+        let arbNetChainId = ethers.utils.hexValue(arbitrumNet.chainId)
+
+        try {
+            await window.ethereum.request({
+                method: "wallet_switchEthereumChain",
+                params: [{chainId: arbNetChainId}]
+            });
+        } catch (switchError) {
+            // This error code indicates that the chain has not been added to MetaMask.
+            if (switchError.code === 4902) {
+                try {
+                    await window.ethereum.request({
+                        method: "wallet_addEthereumChain",
+                        params: [
+                            {
+                                chainId: arbNetChainId,
+                                chainName: arbitrumNet.displayName,
+                                rpcUrls: [arbitrumNet.rpcUrl],
+                                blockExplorerUrls: [arbitrumNet.blockExplorer],
+                                nativeCurrency: {
+                                    name: arbitrumNet.currencySymbol,
+                                    symbol: arbitrumNet.currencySymbol,
+                                    decimals: 18
+                                }
+                            }
+                        ]
+                    });
+                } catch (addError) {
+                    console.log(addError)
+                }
+            }
+        }
+    }
+
     async function addAddress() {
 
         if (addressFound) {
@@ -211,7 +249,12 @@
         <span>Add an address to track IPFS pins from</span>
         <div class="flex gap-5 w-full">
           <input class="default-input w-1/2" bind:value={address}/>
-          <button class="default-btn" on:click={()=>{addAddress()}} disabled={addressFound}> Add address</button>
+          {#if $activeNetwork.chainId === arbitrumNet.chainId}
+            <button class="default-btn" on:click={()=>{addAddress()}} disabled={addressFound}> Add address</button>
+          {/if}
+          {#if $activeNetwork.chainId !== arbitrumNet.chainId}
+            <button class="default-btn" on:click={()=>{switchToArbitrum()}}> Change network</button>
+          {/if}
           {#if addressFound}
             <div class="error">Address already added</div>
           {/if}
