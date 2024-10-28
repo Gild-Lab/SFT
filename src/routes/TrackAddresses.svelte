@@ -8,14 +8,14 @@
         activeNetwork
     } from "../scripts/store";
     import {
-        cborDecode, cborEncode,
+        cborDecode,
         getContract, showPrompt,
     } from "../scripts/helpers.js";
     import SftLoader from '../components/SftLoader.svelte';
     import {icons} from '../scripts/assets.js';
     import {encodeAddresses, hexToBytes, initWasm} from "../wasm_utils.js";
     import {
-        MAGIC_NUMBERS, RAIN_METADATA_CONTRACT_ADDRESS_ARBITRUM_ONE,
+        MAGIC_NUMBERS,
         RAIN_METADATA_CONTRACT_ADDRESS_SEPOLIA
     } from '../scripts/consts.js';
     import {arrayify} from 'ethers/lib/utils.js';
@@ -31,7 +31,7 @@
     let addresses = [];
 
     onMount(async () => {
-        metadataContract = await getContract(arbitrumNet, RAIN_METADATA_CONTRACT_ADDRESS_ARBITRUM_ONE.trim(), metadataContractAbi, $ethersData.signerOrProvider)
+        metadataContract = await getContract(arbitrumNet, RAIN_METADATA_CONTRACT_ADDRESS_SEPOLIA.trim(), metadataContractAbi, $ethersData.signerOrProvider)
         await getAddresses();
     })
 
@@ -41,17 +41,13 @@
         // Traverse the meta data to process each add/remove action
         metaData.forEach(item => {
             const decoded = cborDecode(item.meta.slice(18)); // Decode the meta data
-            const magicNumber = decoded[0].get(1);
-            if (magicNumber === MAGIC_NUMBERS.AUTHOR_ADDRESS) {
-                const myArray = decoded[0].get(0);
+            const myArray = decoded[0].get(0);
 
-                const actionPrefix = myArray[0]; // 0 for remove, 1 for add
-                const addressHex = myArray[1]; // Extract the address
+            const actionPrefix = myArray[0]; // 0 for remove, 1 for add
+            const addressHex = arrayToHex(myArray.subarray(1)); // Extract the address
 
-                // Track the last action for each address (1 for add, 0 for remove) along with the sender
-                addressActions[addressHex] = {action: actionPrefix, sender: item.sender};
-            }
-
+            // Track the last action for each address (1 for add, 0 for remove) along with the sender
+            addressActions[addressHex] = {action: actionPrefix, sender: item.sender};
         });
 
         // Collect addresses that were added (1) and not subsequently removed (0)
@@ -169,17 +165,26 @@
         if (addressFound) {
             return;
         }
-        const metaForAdd = [1, address];
-        const encodedMeta = cborEncode(
-            metaForAdd,
-            MAGIC_NUMBERS.AUTHOR_ADDRESS, // Magic number
-            null,
-            {}
-        );
+        let byteAddress = await hexToBytes(address)
 
-        const constructedMeta = "0x" + MAGIC_NUMBERS.RAIN_META_DOCUMENT.toString(16).toLowerCase() +
-            encodedMeta
+        // Create a new Uint8Array with a length of 21 bytes
+        let newArray = new Uint8Array(21);
 
+        // Set the first byte of the new array to 1
+        newArray[0] = 1;
+
+        // Copy the contents of the original array to the new array starting from index 1
+        newArray.set(byteAddress, 1);
+
+        //Cbor Encode the address
+        let cborEncoded = await cborEncodeAddress(newArray)
+
+        let rainMagic = arrayify(MAGIC_NUMBERS.RAIN_META_DOCUMENT_HEX_STRING)
+
+        let constructedMeta = new Uint8Array(rainMagic.length + cborEncoded.length);
+
+        constructedMeta.set(rainMagic, 0);
+        constructedMeta.set(cborEncoded, rainMagic.length);
         let subject = "0x0000000000000000000000000000000000000000000000000000000000000001"
         let tx = await metadataContract.connect(signer)["emitMeta(bytes32,bytes)"](subject, constructedMeta);
         await showPrompt(tx)
