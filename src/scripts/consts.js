@@ -58,7 +58,7 @@ export const MAGIC_NUMBERS = {
     /**
      * OA Token authors
      */
-    AUTHORS_LIST: BigInt(0xffb2637608c09e38n)
+    AUTHOR_ADDRESS: BigInt(0xffac0431afb59d7bn)
 };
 
 export const TRANSACTION_IN_PROGRESS_TEXT = "Transaction taking place, please wait."
@@ -93,3 +93,4 @@ export const landingPages = ['', '/', '#', '#transparency', '#investors', '#issu
 
 export const RAIN_METADATA_CONTRACT_ADDRESS = "0x441f7AF49387295638Eec40577dB67dc5776c683"
 export const RAIN_METADATA_CONTRACT_ADDRESS_SEPOLIA = "0xb1d6D10561D4e1792A7c6B336b0529e4bFb5Ea8F"
+export const RAIN_METADATA_CONTRACT_ADDRESS_ARBITRUM_ONE = "0x017F5651eB8fa4048BBc17433149c6c035d391A6"
