@@ -36,17 +36,20 @@
 
     function processAddresses(metaData) {
         const addressActions = {};
-
         // Traverse the meta data to process each add/remove action
         metaData.forEach(item => {
             const decoded = cborDecode(item.meta.slice(18)); // Decode the meta data
             const myArray = decoded[0].get(0);
+            const magicNumber = decoded[0].get(1);
+            if (magicNumber && magicNumber === MAGIC_NUMBERS.AUTHORS_LIST) {
+                const actionPrefix = myArray[0];
+                if (myArray instanceof Uint8Array) {
+                    const addressHex = arrayToHex(myArray.subarray(1)); // Extract the address
 
-            const actionPrefix = myArray[0]; // 0 for remove, 1 for add
-            const addressHex = arrayToHex(myArray.subarray(1)); // Extract the address
-
-            // Track the last action for each address (1 for add, 0 for remove) along with the sender
-            addressActions[addressHex] = {action: actionPrefix, sender: item.sender};
+                    // Track the last action for each address (1 for add, 0 for remove) along with the sender
+                    addressActions[addressHex] = {action: actionPrefix, sender: item.sender};
+                }
+            }
         });
 
         // Collect addresses that were added (1) and not subsequently removed (0)
