@@ -70,8 +70,10 @@ describe('The Home Page', () => {
         cy.url().should('include', '/#asset-register')
     });
     it('Navigates to ipfs', () => {
-        cy.get(`.path-ipfs`).click();
-        cy.url().should('include', '/#ipfs')
+        cy.get(`#token-name-Sepolia-test`).click();
+        cy.wait(1000)
+        cy.get(`.path-ipfs-login`).click();
+        cy.url().should('include', '/#ipfs-login')
     });
     it('Navigates to setup', () => {
         cy.get(`.path-setup`).click();

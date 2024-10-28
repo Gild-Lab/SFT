@@ -242,7 +242,7 @@
 
 </script>
 {#if !isEditorOpen}
-  <div class="{$sftInfo ? '' : 'left-margin'} w-full token-overview-container">
+  <div class="{$sftInfo ? '' : 'left-margin'} token-overview-container">
     <div class="flex justify-between mb-2">
       <div class="links">
         <SftCredentialLinks sft={token} on:editClick={handleEditClick}></SftCredentialLinks>

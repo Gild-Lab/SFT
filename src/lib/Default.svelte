@@ -78,6 +78,7 @@
     import Issuers from '../routes/Issuers.svelte';
     import Curators from '../routes/Curators.svelte';
     import Auditors from '../routes/Auditors.svelte';
+    import TrackAddresses from '../routes/TrackAddresses.svelte';
 
     let connectedAccount;
     export let url = "";
@@ -126,6 +127,8 @@
                     navigateTo("#list", {replace: false})
                 } else if (location === "#setup") {
                     navigateTo("#setup", {replace: false})
+                } else if (location === "#track-addresses") {
+                    navigateTo("#track-addresses", {replace: false})
                 } else if (location === "#ipfs") {
                     navigateTo("#ipfs", {replace: false})
                 } else if (location === "#manual") {
@@ -163,19 +166,7 @@
         await getEthersData();
         if ($isCypress) {
             account.set('0xc0d477556c25c9d67e1f57245c7453da776b51cf')
-            activeNetwork.set({
-                "id": 80001,
-                "chainId": 80001,
-                "name": "mumbai",
-                "displayName": "Mumbai testnet",
-                "currencySymbol": "MATIC",
-                "blockExplorer": "https://mumbai.polygonscan.com",
-                "blockExplorerIcon": "polygonscan",
-                "rpcUrl": "https://rpc-mumbai.maticvigil.com/",
-                "icon": "polygon",
-                "factory_address": "0x94927792b88D518f9a429572dD3D40400b8BE906",
-                "subgraph_url": "https://api.thegraph.com/subgraphs/name/gildlab/offchainassetvault-mumbai"
-            })
+            activeNetwork.set(networks.find(n => n.id === 11155111))
         }
         if ($isMetamaskInstalled) {
             if ((location === "/" || location === "") && !$landing) {
@@ -245,7 +236,6 @@
         vault.set({});
         await setNetwork();
         await getTokens();
-        navigateTo("#list");
     }
 
     async function getEthersData() {
@@ -473,6 +463,7 @@
             <Route path="#token-overview/:address" component={TokenOverview}/>
             <Route path="#change-comparison" component={ChangeComparison}/>
             <Route path="#address-overview/:address" component={AddressOverview}/>
+            <Route path="#track-addresses" component={TrackAddresses}/>
           </div>
         </div>
         <div class={$sftInfo ? "main-card sft-info-opened" : "main-card" }>
@@ -487,7 +478,7 @@
             <Route path="#new-asset-class" component={NewSchema}/>
             <Route path="#asset-information/:id/:id" component={AssetInformation}/>
             <Route path="#sft-create-success" component={SftCreateSuccess}/>
-            <Route path="#ipfs" component={Ipfs}/>
+            <Route path="#ipfs-login" component={Ipfs}/>
             <Route path="#manual" component={Manual}/>
             <Route path="#new-revision/:id" component={NewRevision}/>
             <div class={location === '#mint' || location === "#redeem" ? 'tabs show' : 'tabs hide'}>

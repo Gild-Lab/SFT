@@ -33,6 +33,8 @@ export const MAGIC_NUMBERS = {
      * Prefixes every rain meta document
      */
     RAIN_META_DOCUMENT: BigInt(0xff0a89c674ee7874n),
+
+    RAIN_META_DOCUMENT_HEX_STRING: "0xff0a89c674ee7874",
     /**S
      * OA Schema
      */
@@ -56,7 +58,7 @@ export const MAGIC_NUMBERS = {
     /**
      * OA Token authors
      */
-    AUTHORS_LIST: BigInt(0xffb2637608c09e38)
+    AUTHORS_LIST: BigInt(0xffb2637608c09e38n)
 };
 
 export const TRANSACTION_IN_PROGRESS_TEXT = "Transaction taking place, please wait."
@@ -82,7 +84,13 @@ export const ROUTE_LABEL_MAP = new Map([
     ["#asset-history", "Asset history"],
     ["#change-comparison", "Change comparison"],
     ["#address-overview", "Address overview"],
-    ["#knowledgebase", "Knowledgebase"]
+    ["#knowledgebase", "Knowledgebase"],
+    ["#ipfs-login", "IPFS login"],
+    ["#track-addresses", "Track addresses"]
 ]);
 
-export const landingPages = ['', '/', '#', '#transparency', '#investors', '#issuers', '#curators','#auditors']
+export const landingPages = ['', '/', '#', '#transparency', '#investors', '#issuers', '#curators', '#auditors']
+
+export const RAIN_METADATA_CONTRACT_ADDRESS = "0x441f7AF49387295638Eec40577dB67dc5776c683"
+export const RAIN_METADATA_CONTRACT_ADDRESS_SEPOLIA = "0xb1d6D10561D4e1792A7c6B336b0529e4bFb5Ea8F"
+export const RAIN_METADATA_CONTRACT_ADDRESS_ARBITRUM_ONE = "0x017F5651eB8fa4048BBc17433149c6c035d391A6"

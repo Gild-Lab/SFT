@@ -1,5 +1,5 @@
 <script>
-    import {sftInfo, tokenName, vault} from "../scripts/store.js";
+    import {sftInfo, tokenName, vault, account} from "../scripts/store.js";
     import NavigationButton from './NavigationButton.svelte';
     import TokenOverviewTable from './TokenOverviewTable.svelte';
     import {navigate} from '../scripts/helpers.js';
@@ -91,7 +91,8 @@
          class="flex jusitfy-start items-center space-x-6 w-full  focus:outline-none  focus:text-indigo-400 rounded py-2 text-nav font-semibold pl-5">
         <span class="leading-5 menu-header">Web 3</span>
       </a>
-      <NavigationButton targetPath="#ipfs" {path} on:navClick={handleClick}>
+
+      <NavigationButton label="IPFS" {path}>
         <div slot="icon">
           <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path
@@ -102,6 +103,8 @@
           </svg>
         </div>
       </NavigationButton>
+      <NavigationButton targetPath="#ipfs-login" {path} on:navClick={handleClick} child={true}/>
+      <NavigationButton targetPath="#track-addresses" {path} on:navClick={handleClick} child={true}/>
       <NavigationButton targetPath="#setup" {path} on:navClick={handleClick}>
         <div slot="icon">
           <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">

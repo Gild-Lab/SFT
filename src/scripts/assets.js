@@ -15,6 +15,7 @@ import gild_lab from '../assets/icons/gild_lab.svg'
 import rain from '../assets/icons/rain.svg'
 import camera from '../assets/icons/camera.svg'
 import copy from '../assets/icons/copy.svg'
+import copy_brown from '../assets/icons/copy_brown.svg'
 import discord from '../assets/icons/discord.svg'
 import etherscan from '../assets/icons/etherscan.svg'
 import polygonscan from '../assets/icons/polygonscan.svg'
@@ -50,6 +51,7 @@ import auditors_hero from '../assets/icons/auditors_hero.webp';
 import wave_resp from '../assets/icons/wave_resp.svg';
 import investor_hero_tile from '../assets/icons/investor_hero_tile.webp';
 import arbitrum from '../assets/icons/arbitrum.svg';
+import bin from '../assets/icons/bin.svg';
 
 export const icons = {
     ethereum,
@@ -103,5 +105,7 @@ export const icons = {
     auditors_hero,
     wave_resp,
     investor_hero_tile,
-    arbitrum
+    arbitrum,
+    copy_brown,
+    bin
 }

@@ -30,6 +30,7 @@ describe('Members page', () => {
     it('Should check update tier buttons does not exits if no role', () => {
         cy.get(`.path-list`).click();
         cy.get(`#token-name-New-Project`).click();
+        cy.wait(1000)
         cy.get(`.path-members`).click();
         cy.get(`.update-tier-erc20`).should('not.exist')
         cy.get(`.update-tier-erc1155`).should('not.exist')

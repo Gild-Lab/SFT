@@ -62,7 +62,7 @@ const networks = [
         rpcUrl: "https://sepolia-rollup.arbitrum.io/rpc",
         icon: 'arbitrum',
         factory_address: '0xf1A14e96977E8dE295Ba9612691D127B157d1371',
-        subgraph_url: "https://api.goldsky.com/api/public/project_clv14x04y9kzi01saerx7bxpg/subgraphs/sft-offchainassetvault-arbitrum-sepolia/1.0.0/gn"
+        subgraph_url: "https://api.goldsky.com/api/public/project_clv14x04y9kzi01saerx7bxpg/subgraphs/sft-offchainassetvault-arbitrum-sepolia/1.0.0/gn",
     }
 ];
 

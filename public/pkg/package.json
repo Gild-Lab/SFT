@@ -1,0 +1,14 @@
+{
+  "name": "encoding-addresses",
+  "version": "0.1.0",
+  "files": [
+    "encoding_addresses_bg.wasm",
+    "encoding_addresses.js",
+    "encoding_addresses.d.ts"
+  ],
+  "module": "encoding_addresses.js",
+  "types": "encoding_addresses.d.ts",
+  "sideEffects": [
+    "./snippets/*"
+  ]
+}
