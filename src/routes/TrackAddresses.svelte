@@ -15,8 +15,7 @@
     import {icons} from '../scripts/assets.js';
     import {encodeAddresses, hexToBytes, initWasm} from "../wasm_utils.js";
     import {
-        MAGIC_NUMBERS,
-        RAIN_METADATA_CONTRACT_ADDRESS_SEPOLIA
+        MAGIC_NUMBERS, RAIN_METADATA_CONTRACT_ADDRESS_ARBITRUM_ONE
     } from '../scripts/consts.js';
     import {arrayify} from 'ethers/lib/utils.js';
     import metadataContractAbi from "../contract/rainMetadata/rainMetadataAbi.json"
@@ -31,7 +30,7 @@
     let addresses = [];
 
     onMount(async () => {
-        metadataContract = await getContract(arbitrumNet, RAIN_METADATA_CONTRACT_ADDRESS_SEPOLIA.trim(), metadataContractAbi, $ethersData.signerOrProvider)
+        metadataContract = await getContract(arbitrumNet, RAIN_METADATA_CONTRACT_ADDRESS_ARBITRUM_ONE.trim(), metadataContractAbi, $ethersData.signerOrProvider)
         await getAddresses();
     })
 
