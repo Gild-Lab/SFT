@@ -229,7 +229,11 @@
 
         constructedMeta.set(rainMagic, 0);
         constructedMeta.set(cborEncoded, rainMagic.length);
-        const tx = await metadataContract.connect(signer)["emitMeta(uint256,bytes)"](1, constructedMeta);
+
+        let subject = "0x0000000000000000000000000000000000000000000000000000000000000001"
+        let tx = await metadataContract.connect(signer)["emitMeta(bytes32,bytes)"](subject, constructedMeta);
+        await showPrompt(tx)
+
         let wait = await tx.wait()
         if (wait.status === 1) {
             addresses = addresses.filter(a => a.address !== address);
