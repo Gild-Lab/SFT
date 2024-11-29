@@ -85,4 +85,4 @@ export const ROUTE_LABEL_MAP = new Map([
     ["#knowledgebase", "Knowledgebase"]
 ]);
 
-export const landingPages = ['', '/', '#', '#transparency', '#investors', '#issuers', '#curators','#auditors']
+export const landingPages = ['', '/', '#', '#transparency', '#investors', '#issuers', '#curators','#auditors', '#case-studies']

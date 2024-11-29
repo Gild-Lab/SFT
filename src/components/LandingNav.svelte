@@ -60,6 +60,9 @@
       <div class="{$router.path === '#transparency' ? 'active link' : 'link'} transparency-button">
         <Link href="#transparency">SFT transparency</Link>
       </div>
+      <div class="{$router.path === '#case-studies' ? 'active link' : 'link'} transparency-button">
+        <Link href="#case-studies">Case studies</Link>
+      </div>
       <button class="launch-button" id="launch-button" on:click="{()=>launchApp()}">Launch app</button>
     </div>
   </div>

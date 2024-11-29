@@ -78,6 +78,7 @@
     import Issuers from '../routes/Issuers.svelte';
     import Curators from '../routes/Curators.svelte';
     import Auditors from '../routes/Auditors.svelte';
+    import CaseStudies from '../routes/CaseStudies.svelte';
 
     let connectedAccount;
     export let url = "";
@@ -447,6 +448,7 @@
     <Route path="#issuers" component={Issuers}/>
     <Route path="#curators" component={Curators}/>
     <Route path="#auditors" component={Auditors}/>
+    <Route path="#case-studies" component={CaseStudies}/>
   </div>
   <div class="{!$landing ? 'block' : 'hide'}">
     <div class={$isMetamaskInstalled ? "content" : "content-not-connected"}>
